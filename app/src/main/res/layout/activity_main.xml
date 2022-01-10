@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.codeingnight.android.workout.Converter"/>
+        <import type="com.codeingnight.android.workout.bindadapters.NumberOfSetsConverters" />
+        <variable
+            name="viewModel"
+            type="com.codeingnight.android.workout.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.53" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <ImageButton
+            android:id="@+id/setsDecrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:minHeight="48dp"
+            android:onClick="@{() -> viewModel.setsDecrease()}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:srcCompat="@drawable/ic_reduce"
+            android:contentDescription="@string/setsDecrease" />
+
+        <ImageButton
+            android:id="@+id/setsIncrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:onClick="@{() -> viewModel.setsIncrease()}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:srcCompat="@drawable/ic_add"
+            android:contentDescription="@string/setsIncrease" />
+
+        <ToggleButton
+            android:id="@+id/startPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={viewModel.timerRunning}"
+            android:textOff="@string/start"
+            android:textOn="@string/pause"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+        <Button
+            android:id="@+id/resetplus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/reset"
+            android:onClick="@{() -> viewModel.resetButtonClicked()}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+        <EditText
+            android:id="@+id/numberOfSets"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:minHeight="48dp"
+            tools:text="@string/sets"
+            android:textAlignment="center"
+            android:imeOptions="actionDone"
+            clearTextOnFocus="@{true}"
+            numberOfSets="@={NumberOfSetsConverters.setArrayToString(context, viewModel.numberOfSets)}"
+            hideKeyboardOnInputDone="@{true}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toStartOf="@+id/setsIncrease"
+            app:layout_constraintStart_toEndOf="@+id/setsDecrease"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+        <TextView
+            android:id="@+id/displayWorkTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/seconds"
+            android:text="@{Converter.fromTenthsToSeconds(viewModel.workTimeLeft)}"
+            android:textSize="60sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+        <EditText
+            android:id="@+id/setWorkTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            android:imeOptions="actionDone"
+            android:text="@{Converter.fromTenthsToSeconds(viewModel.timePerWorkSet)}"
+            clearOnFocusAndDispatch="@{() -> viewModel.timePerWorkSetChanged(setWorkTime.getText())}"
+            hideKeyboardOnInputDone="@{true}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toStartOf="@+id/workplus"
+            app:layout_constraintStart_toEndOf="@+id/workminus"
+            app:layout_constraintTop_toTopOf="@+id/guideline4"
+            tools:text="@string/seconds" />
+
+        <ImageButton
+            android:id="@+id/workminus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/workminus"
+            android:minHeight="48dp"
+            android:onClick="@{() -> viewModel.workTimeDecrease()}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintTop_toTopOf="@+id/guideline4"
+            app:srcCompat="@drawable/ic_reduce" />
+
+        <ImageButton
+            android:id="@+id/workplus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/workplus"
+            android:minHeight="48dp"
+            android:onClick="@{() -> viewModel.workTimeIncrease()}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10"
+            app:layout_constraintTop_toTopOf="@+id/guideline4"
+            app:srcCompat="@drawable/ic_add" />
+
+        <TextView
+            android:id="@+id/displayRestTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/seconds"
+            android:text="@{Converter.fromTenthsToSeconds(viewModel.restTimeLeft)}"
+            android:textSize="60sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+        <EditText
+            android:id="@+id/setRestTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            android:imeOptions="actionDone"
+            android:text="@{Converter.fromTenthsToSeconds(viewModel.timePerRestSet)}"
+            clearOnFocusAndDispatch="@{() -> viewModel.timePerRestSetChanged(setRestTime.getText())}"
+            hideKeyboardOnInputDone="@{true}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline6"
+            app:layout_constraintEnd_toStartOf="@+id/restplus"
+            app:layout_constraintStart_toEndOf="@+id/restminus"
+            app:layout_constraintTop_toTopOf="@+id/guideline6"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="@string/seconds" />
+
+        <ImageButton
+            android:id="@+id/restminus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:onClick="@{() -> viewModel.restTimeDecrease()}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline6"
+            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintTop_toTopOf="@+id/guideline6"
+            app:srcCompat="@drawable/ic_reduce"
+            android:contentDescription="@string/restminus" />
+
+        <ImageButton
+            android:id="@+id/restplus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:onClick="@{() -> viewModel.restTimeIncrease()}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline6"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10"
+            app:layout_constraintTop_toTopOf="@+id/guideline6"
+            app:srcCompat="@drawable/ic_add"
+            android:contentDescription="@string/restplus" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

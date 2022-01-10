@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Workout</string>
+    <string name="reset">RESET</string>
+    <string name="seconds">30.0</string>
+    <string name="sets">Sets: 1/6</string>
+    <string name="setsDecrease">Descrease Sets</string>
+    <string name="setsIncrease">Increase Sets</string>
+    <string name="sets_format">Sets: %d/%d</string>
+    <string name="workminus">Minus Work</string>
+    <string name="workplus">Plus Work</string>
+    <string name="restminus">Minus Rest</string>
+    <string name="restplus">Plus Rest</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+</resources>
